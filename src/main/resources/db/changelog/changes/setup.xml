@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet author="hossein.yeganeh" id="20220510-1">
+        <createTable tableName="category">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="full_parent_path" type="VARCHAR(255)">
+            </column>
+            <column name="parent_id" type="BIGINT">
+                <constraints foreignKeyName="parent_category_fk" referencedTableName="category" referencedColumnNames="id"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="hossein.yeganeh" id="20220510-2">
+        <createTable tableName="product">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="online_status" type="VARCHAR(10)">
+            </column>
+            <column name="short_description" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="long_description" type="mediumtext">
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="hossein.yeganeh" id="20220510-3">
+        <createTable tableName="product_category">
+            <column name="product_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="product_fk" referencedTableName="product" referencedColumnNames="id"/>
+            </column>
+            <column name="category_id" type="BIGINT">
+                <constraints nullable="false" foreignKeyName="category_fk" referencedTableName="category" referencedColumnNames="id"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
