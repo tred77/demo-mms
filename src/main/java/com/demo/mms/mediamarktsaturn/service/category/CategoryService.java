@@ -45,7 +45,7 @@ public interface CategoryService {
      * @param categoryId
      * @throws EntityNotFoundException
      */
-    void delete(Long categoryId) throws EntityNotFoundException, ConstraintsViolationException;
+    void delete(Long categoryId) throws EntityNotFoundException;
 
     /**
      * update the category

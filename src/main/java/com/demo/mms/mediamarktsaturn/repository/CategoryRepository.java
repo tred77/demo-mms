@@ -16,13 +16,11 @@ public interface CategoryRepository extends PagingAndSortingRepository<Category,
 
 
     static Specification<Category> buildSpecificationBySearchQuery(String name) {
-        return (Specification) (root, query, criteriaBuilder) -> {
+        return (root, query, criteriaBuilder) -> {
             if (!StringUtils.isEmpty(name)) {
                 return criteriaBuilder.like(root.get("name"), "%" + name + "%");
             }
             return null;
         };
     }
-
-
 }

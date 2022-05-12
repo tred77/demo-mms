@@ -1,11 +1,9 @@
 package com.demo.mms.mediamarktsaturn.service.category;
 
 import com.demo.mms.mediamarktsaturn.domain_data.Category;
-import com.demo.mms.mediamarktsaturn.domain_data.Product;
 import com.demo.mms.mediamarktsaturn.exception.ConstraintsViolationException;
 import com.demo.mms.mediamarktsaturn.exception.EntityNotFoundException;
 import com.demo.mms.mediamarktsaturn.repository.CategoryRepository;
-import com.demo.mms.mediamarktsaturn.repository.ProductRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -15,10 +13,13 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
-import static java.util.Collections.*;
+import static java.util.Collections.singletonList;
 
 @Slf4j
 @Service
@@ -54,7 +55,7 @@ public class DefaultCategoryService implements CategoryService {
     }
 
     @Override
-    public void delete(Long categoryId) throws EntityNotFoundException, ConstraintsViolationException {
+    public void delete(Long categoryId) throws EntityNotFoundException {
         Category category = this.findCategory(categoryId);
         categoryRepository.delete(category);
     }

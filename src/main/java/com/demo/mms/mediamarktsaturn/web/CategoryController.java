@@ -7,6 +7,7 @@ import com.demo.mms.mediamarktsaturn.mapper.CategoryMapper;
 import com.demo.mms.mediamarktsaturn.service.category.CategoryService;
 import com.demo.mms.mediamarktsaturn.transfer_data.CategoryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -41,7 +42,13 @@ public class CategoryController {
 
     @DeleteMapping("/{categoryId}")
     public void deleteCategory(@PathVariable long categoryId) throws EntityNotFoundException, ConstraintsViolationException {
-        categoryService.delete(categoryId);
+        try {
+            categoryService.delete(categoryId);
+        } catch (EntityNotFoundException e) {
+            throw e;
+        } catch (DataIntegrityViolationException e) {
+            throw new ConstraintsViolationException("Category with Id = " + categoryId + " can't be deleted because of Data Integrity Violation!");
+        }
     }
 
 

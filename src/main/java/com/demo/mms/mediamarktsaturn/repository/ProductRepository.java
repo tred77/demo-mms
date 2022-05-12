@@ -29,7 +29,7 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, L
 
 
     static Specification<Product> buildSpecificationBySearchQuery(String name, String shortDescription) {
-        return (Specification) (root, query, criteriaBuilder) -> {
+        return (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
             if (!StringUtils.isEmpty(name)) {
                 predicates.add(criteriaBuilder.like(root.get("name"), "%" + name + "%"));
@@ -47,5 +47,4 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, L
             }
         };
     }
-
 }
